@@ -1,21 +1,28 @@
 import connectDB from "../db.js";
 import handler from "../controller/lib/index.js";
 
-let isConnected = false;
-
 export default async function webhook(req, res) {
+  // 1. Only allow POST requests from Telegram
   if (req.method !== "POST") {
     return res.status(200).send("Telegram Bot is running 🚀");
   }
 
-  if (!isConnected) {
+  try {
+    // 2. Ensure Database is connected
     await connectDB();
-    isConnected = true;
+
+    // 3. Process the update FIRST
+    const update = req.body;
+    if (update) {
+      await handler(update);
+    }
+
+    // 4. Send 200 OK only AFTER the logic is done
+    return res.status(200).json({ status: "success" });
+  } catch (error) {
+    console.error("❌ Webhook Error:", error);
+    // Still send 200 to Telegram to prevent them from retrying infinitely 
+    // unless you want Telegram to retry on failure.
+    return res.status(200).send("Error handled");
   }
-
-  const update = req.body;
-
-  res.sendStatus(200); // respond instantly to Telegram
-
-  await handler(update); // ✅ THIS is correct
 }
