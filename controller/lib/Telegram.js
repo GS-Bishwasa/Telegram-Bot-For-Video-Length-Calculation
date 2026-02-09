@@ -129,18 +129,18 @@ Twitter(X): https://x.com/GSBishwasa`
                         messageObj,
                         `📊 Video Summary
 
-                            📹 Total videos: ${stats.count}
+📹 Total videos: ${stats.count}
 
-                            📐 Average length: ${average}
+📐 Average length: ${average}
 
-                            ⏱ Total time needed: ${formatDuration(stats.totalSeconds)}
+⏱ Total time needed: ${formatDuration(stats.totalSeconds)}
 
-                            ▶️ Playback durations:
-                            • 0.5x → ${formatDuration(Math.floor(stats.totalSeconds / 0.5))}
-                            • 1.0x → ${formatDuration(stats.totalSeconds)}
-                            • 1.5x → ${formatDuration(Math.floor(stats.totalSeconds / 1.5))}
-                            • 2.0x → ${formatDuration(Math.floor(stats.totalSeconds / 2))}
-                            `
+▶️ Playback durations:
+• 0.5x → ${formatDuration(Math.floor(stats.totalSeconds / 0.5))}
+• 1.0x → ${formatDuration(stats.totalSeconds)}
+• 1.5x → ${formatDuration(Math.floor(stats.totalSeconds / 1.5))}
+• 2.0x → ${formatDuration(Math.floor(stats.totalSeconds / 2))}
+`
                     );
                 }
 
