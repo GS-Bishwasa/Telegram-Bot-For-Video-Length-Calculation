@@ -65,26 +65,26 @@ export default async function HandleMessage(messageObj) {
             const command = messageText.slice(1);
 
             switch (command) {
-//                 case 'total':
-//                     return sendMessage(
-//                         messageObj,
-//                         `📊 Video Summary
-// 📹 Total videos: ${videoStats.count}
+                //                 case 'total':
+                //                     return sendMessage(
+                //                         messageObj,
+                //                         `📊 Video Summary
+                // 📹 Total videos: ${videoStats.count}
 
-// 📐 Average length: ${videoStats.count
-//                             ? formatDuration(Math.floor(videoStats.totalSeconds / videoStats.count))
-//                             : '0h 0m 0s'
-//                         }
+                // 📐 Average length: ${videoStats.count
+                //                             ? formatDuration(Math.floor(videoStats.totalSeconds / videoStats.count))
+                //                             : '0h 0m 0s'
+                //                         }
 
-// ⏱ Total time needed: ${formatDuration(videoStats.totalSeconds)}
+                // ⏱ Total time needed: ${formatDuration(videoStats.totalSeconds)}
 
-// ▶️ Playback durations:
-// • 0.5x : ${formatDuration(Math.floor(videoStats.totalSeconds / 0.5))}
-// • 1.0x : ${formatDuration(videoStats.totalSeconds)}
-// • 1.5x : ${formatDuration(Math.floor(videoStats.totalSeconds / 1.5))}
-// • 2.0x : ${formatDuration(Math.floor(videoStats.totalSeconds / 2))}
-// `
-//                     );
+                // ▶️ Playback durations:
+                // • 0.5x : ${formatDuration(Math.floor(videoStats.totalSeconds / 0.5))}
+                // • 1.0x : ${formatDuration(videoStats.totalSeconds)}
+                // • 1.5x : ${formatDuration(Math.floor(videoStats.totalSeconds / 1.5))}
+                // • 2.0x : ${formatDuration(Math.floor(videoStats.totalSeconds / 2))}
+                // `
+                //                     );
 
 
                 case 'start':
@@ -106,43 +106,59 @@ Easily calculate total watch time of multiple videos.
 
 👨‍💻 Created by GS Bishwasa
 © All rights reserved ${new Date().getFullYear()}
-                        `
+
+🔗 Connect with me:
+GitHub: https://github.com/GS-Bishwasa
+LinkedIn: https://www.linkedin.com/in/gs-bishwasa-480764331
+Twitter(X): https://x.com/GSBishwasa`
                     );
 
 
-case 'total': {
+                case 'total': {
 
-  const stats = await VideoStat.findOne({
-    chatId: messageObj.chat.id
-  }) || { count: 0, totalSeconds: 0 };
+                    const stats = await VideoStat.findOne({
+                        chatId: messageObj.chat.id
+                    }) || { count: 0, totalSeconds: 0 };
 
-  const average =
-    stats.count > 0
-      ? formatDuration(Math.floor(stats.totalSeconds / stats.count))
-      : '0h 0m 0s';
+                    const average =
+                        stats.count > 0
+                            ? formatDuration(Math.floor(stats.totalSeconds / stats.count))
+                            : '0h 0m 0s';
 
-  return sendMessage(
-    messageObj,
-    `📊 Video Summary
+                    return sendMessage(
+                        messageObj,
+                        `📊 Video Summary
 
-📹 Total videos: ${stats.count}
+                            📹 Total videos: ${stats.count}
 
-📐 Average length: ${average}
+                            📐 Average length: ${average}
 
-⏱ Total time needed: ${formatDuration(stats.totalSeconds)}
+                            ⏱ Total time needed: ${formatDuration(stats.totalSeconds)}
 
-▶️ Playback durations:
-• 0.5x → ${formatDuration(Math.floor(stats.totalSeconds / 0.5))}
-• 1.0x → ${formatDuration(stats.totalSeconds)}
-• 1.5x → ${formatDuration(Math.floor(stats.totalSeconds / 1.5))}
-• 2.0x → ${formatDuration(Math.floor(stats.totalSeconds / 2))}
-`
-  );
-}
+                            ▶️ Playback durations:
+                            • 0.5x → ${formatDuration(Math.floor(stats.totalSeconds / 0.5))}
+                            • 1.0x → ${formatDuration(stats.totalSeconds)}
+                            • 1.5x → ${formatDuration(Math.floor(stats.totalSeconds / 1.5))}
+                            • 2.0x → ${formatDuration(Math.floor(stats.totalSeconds / 2))}
+                            `
+                    );
+                }
 
 
                 case 'help':
-                    return sendMessage(messageObj, '/total\n/reset\n/info');
+                    return sendMessage(
+                        messageObj,
+                        `📖 Bot Commands
+
+/total  — Show total video duration summary
+/reset  — Reset your video statistics
+/info   — About this bot
+/help   — Show this help message
+
+🎥 Send/Forward videos anytime to calculate their total length.`
+                    );
+
+
 
                 case 'info':
                     return sendMessage(
@@ -154,8 +170,15 @@ case 'total': {
 • /reset → Reset and start a new calculation
 • /help → Show help message
 
-👨‍💻 Created by GS Bishwasa © All rights reserved ${new Date().getFullYear()}`
+👨‍💻 Created by GS Bishwasa
+© All rights reserved ${new Date().getFullYear()}
+
+🔗 Connect with me:
+GitHub: https://github.com/GS-Bishwasa
+LinkedIn: https://www.linkedin.com/in/gs-bishwasa-480764331
+Twitter(X): https://x.com/GSBishwasa`
                     );
+
 
 
 
@@ -170,7 +193,11 @@ case 'total': {
 
 
                 default:
-                    return sendMessage(messageObj, `Unknown command: ${cmd}`);
+                    return sendMessage(
+                        messageObj,
+                        `❌ Unknown command: /${command}\nType /help to see available commands.`
+                    );
+
             }
         }
 
