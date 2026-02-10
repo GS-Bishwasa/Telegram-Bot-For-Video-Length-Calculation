@@ -134,7 +134,9 @@ Easily calculate total watch time of multiple videos.
 🔗 Connect with me:
 GitHub: https://github.com/GS-Bishwasa
 LinkedIn: https://www.linkedin.com/in/gs-bishwasa-480764331
-Twitter(X): https://x.com/GSBishwasa`
+Twitter(X): https://x.com/GSBishwasa
+Telegram: @D_GmingHD
+`
                     );
 
 
@@ -200,7 +202,9 @@ Twitter(X): https://x.com/GSBishwasa`
 🔗 Connect with me:
 GitHub: https://github.com/GS-Bishwasa
 LinkedIn: https://www.linkedin.com/in/gs-bishwasa-480764331
-Twitter(X): https://x.com/GSBishwasa`
+Twitter(X): https://x.com/GSBishwasa
+Telegram: @D_GmingHD
+`
                     );
 
 
