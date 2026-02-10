@@ -22,6 +22,8 @@ async function sendMessage(messageObj, messageText) {
     });
 }
 
+const waitingForFeedback = new Map();
+
 export default async function HandleMessage(messageObj) {
 
     // 🎥 VIDEO HANDLING
@@ -60,6 +62,28 @@ export default async function HandleMessage(messageObj) {
     // 📝 TEXT HANDLING
     if (messageObj.text) {
         const messageText = messageObj.text;
+
+        if (waitingForFeedback.get(messageObj.chat.id)) {
+            const feedbackText = messageObj.text;
+
+            waitingForFeedback.delete(messageObj.chat.id);
+
+            // Send feedback to admin (you)
+            await sendMessage(
+                { chat: { id: process.env.ADMIN_CHAT_ID } },
+                `💬 New Feedback
+
+From: @${messageObj.from?.username || "unknown"}
+User ID: ${messageObj.chat.id}
+
+Message:
+${feedbackText}`
+            );
+
+            return sendMessage(messageObj, "✅ Thanks for your feedback!");
+        }
+
+
 
         if (messageText.startsWith('/')) {
             const command = messageText.slice(1);
@@ -190,6 +214,14 @@ Twitter(X): https://x.com/GSBishwasa`
                 case 'reset':
                     await VideoStat.deleteOne({ chatId: messageObj.chat.id });
                     return sendMessage(messageObj, '🔄 Your video stats have been reset.');
+
+                case 'feedback':
+                    waitingForFeedback.set(messageObj.chat.id, true);
+
+                    return sendMessage(
+                        messageObj,
+                        "💬 Please type your feedback and send it."
+                    );
 
 
                 default:
